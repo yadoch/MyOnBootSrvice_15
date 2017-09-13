@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         img.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                //躲在 View.OnClickListener j物件中,所以不能用this,而是MainActivity.this
                 Intent it = new Intent(MainActivity.this,MyService.class);
                 startService(it);
             }
