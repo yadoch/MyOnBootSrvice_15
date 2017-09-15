@@ -16,6 +16,7 @@ import java.util.TimerTask;
 public class MyService extends Service {
     private Timer timer;
     private NotificationManager nmgr;
+    private int i;
     public MyService() {
     }
 
@@ -53,7 +54,7 @@ public class MyService extends Service {
         builder.setAutoCancel(true); // 預設 false ,點了之後取消
         // 建立傳回值的Intent
         Intent it =new Intent(this,NoticeActivity.class);
-        it.putExtra("key",123);
+        it.putExtra("key",123+i);
 
         TaskStackBuilder stackBuilder=TaskStackBuilder.create(this);
         stackBuilder.addParentStack(NoticeActivity.class);
@@ -66,7 +67,9 @@ public class MyService extends Service {
 
        builder.setContentIntent(pendingIntent);
         Notification notification=builder.build();//根據 Build 建立 Notification
-        nmgr.notify(1,notification);//把通知掛到系統服務 nmgr
+
+        //nmgr.notify(1,notification);//把通知掛到系統服務 nmgr
+        nmgr.notify(++i,notification);// 換成i 後,永遠拿到最新的值,就算點之前的notify 也一樣
     }
     @Override
     public void onDestroy() {
